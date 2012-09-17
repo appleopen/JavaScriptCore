@@ -46,10 +46,6 @@
     // get the current time
     var now = (new Date()).valueOf();
 
-    // calculate time for year 0
-    for ( var time = 0, year = 1969; year >= 0; year-- ) {
-        time -= TimeInYear(year);
-    }
     // get time for 29 feb 2000
 
     var UTC_FEB_29_2000 = TIME_2000 + 31*msPerDay + 28*msPerHour;
@@ -61,18 +57,22 @@
 
     // some daylight savings time cases
 
-    var DST_START_1998 = UTC( GetFirstSundayInApril(TimeFromYear(1998)) + 2*msPerHour )
+    var DST_START_1998 = UTC( GetSecondSundayInMarch(TimeFromYear(1998)) + 2*msPerHour )
 
-    var DST_END_1998 = UTC( GetLastSundayInOctober(TimeFromYear(1998)) + 2*msPerHour );
+    var DST_END_1998 = UTC( GetFirstSundayInNovember(TimeFromYear(1998)) + 2*msPerHour );
 
-    addTestCase( now );
 /*
-    addTestCase( time );
+    // We don't use |now| because it fails every night at midnight.
+    // The test is more reproducable if we use concrete times.
+    addTestCase( now );
+    addTestCase( TIME_YEAR_0 );
     addTestCase( TIME_1970 );
     addTestCase( TIME_1900 );
     addTestCase( TIME_2000 );
     addTestCase( UTC_FEB_29_2000 );
+*/
     addTestCase( UTC_JAN_1_2005 );
+/*
     addTestCase( DST_START_1998 );
     addTestCase( DST_START_1998-1 );
     addTestCase( DST_START_1998+1 );
